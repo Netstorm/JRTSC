@@ -57,7 +57,7 @@ public class client extends Thread
                Thread keyboardThread=new Thread(kb);
                keyboardThread.start();
 
-               //start everything else
+               //start everything else here
                 
                 
             }

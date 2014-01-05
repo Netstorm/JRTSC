@@ -40,21 +40,36 @@ public class serverKeyboard extends Thread
 		try 
 		{
         
-		 Robot robot = new Robot();
+		Robot robot = new Robot();
         // Simulate a key press
-        int key=Integer.parseInt(socketReader.readLine());
+        String key=socketReader.readLine();
+        String keyCode=key.replaceAll("\\D","");
+
         System.out.println("Key received is: "+key);
-        //robot.keyPress(key);
-        //robot.keyRelease(key);
+
+
+        if(key.contains("KP"))
+        	{
+        		System.out.println("I will perform key press"+keyCode);
+          //	robot.keyPress(Integer.parseInt(keyCode));
+
+        	}
+       	if(key.contains("KR"))
+       		{
+       			System.out.println("I will perform key release"+keyCode);
+       	  //	robot.keyRelease(Intger.parseInt(keyCode));
+       		}
+        
         
         }
 
         
 
 		 
-		catch (Exception e) {
-        e.printStackTrace();
-}
+		catch (Exception e) 
+		{
+        	e.printStackTrace();
+		}
 
 	}
 

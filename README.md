@@ -2,7 +2,7 @@ JRTSC
 =====
 
 ## JRTSC (Java Real Time Streaming and Control)
-JRTSC is a VNC replacement meant for actual desktop use. 
+JRTSC is a VNC replacement meant for actual desktop use. It uses [JNativeHook](https://code.google.com/p/jnativehook/ "JNativeHook") for system level control.
 
 ### How to build from source
   
@@ -11,8 +11,8 @@ JRTSC is a VNC replacement meant for actual desktop use.
 <li>Simply cd into the build directory</li>
 <li> Then type 
 <code> .\make.ps1 </code> 
-in power shell. </li>
-<li> To run   <code> .\runServer.ps1 
+in power shell for compiling. </li>
+<li> Type   <code> .\runServer.ps1 
 </code>  to run the server and  <code> .\runClient.ps1 
 </code> to run the client.
 </li>
