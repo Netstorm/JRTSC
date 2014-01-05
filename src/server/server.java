@@ -43,7 +43,7 @@ public void setupServer()
             { 
                 //if no password, ask for one and save it
                 System.out.println("Not setup!");
-                socketWriter.println("Enter password");
+                socketWriter.println("Please enter a password");
                 //read password and save
                 st2=socketReader.readLine();
                 savePassword(st2);

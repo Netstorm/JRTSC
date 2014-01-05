@@ -9,10 +9,11 @@ $dir=pwd;
 cd src;
 $path1= "$dir\lib\JNativeHook.jar" -replace "\\","/";
 $path2="$dir" -replace "\\","/"
-$buildPaths="$path1;$path2;$path3";
-$targetFiles="ClientMain"
+$buildPaths="'$path1;$path2;$path3'";
+$targetFiles="clientMain"
 $cmd="java";
 $flags="-classpath"
-& $cmd $flags $buildPaths $targetFiles
+$allArgs=@($cmd,$flags,$buildPaths,$targetFiles)
+invoke-expression "$allArgs"
 cd ..;
 cd build;
