@@ -14,9 +14,9 @@ JRTSC is a VNC replacement meant for actual desktop use.
 in power shell. </li>
 <li> To run   <code> .\runServer.ps1 
 </code>  to run the server and  <code> .\runClient.ps1 
-</code> to run the client
+</code> to run the client.
 </li>
-Note: Start the server first
+  Note: Start the server first
 </p>
 
 Folder structure
