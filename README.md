@@ -12,9 +12,9 @@ JRTSC is a VNC replacement meant for actual desktop use.
 <li> Then type 
 <code> .\make.ps1 </code> 
 in power shell. </li>
-<li> To run   ``` .\runServer.ps1 
-```  to run the server and  ``` .\runClient.ps1 
-``` to 
+<li> To run   <code> .\runServer.ps1 
+</code>  to run the server and  <code> .\runClient.ps1 
+</code> to run the client
 </li>
 Note: Start the server first
 </p>
