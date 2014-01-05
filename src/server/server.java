@@ -30,7 +30,7 @@ public server(int port)
     }
 }
 public void setupServer()
-    {
+{
         try 
         {   
             
@@ -50,8 +50,9 @@ public void setupServer()
             }
             else
             {
-                //if password exists then check and start services
+                //if password exists then check if its correct and start services
                 
+                //read password from user
                 socketWriter.println("Enter password");
                 st2=null;
                 st2=socketReader.readLine();
@@ -79,7 +80,7 @@ public void setupServer()
         {
             System.out.println(ee);
         }
-    }
+}
  
 
 String readPassword() throws IOException 

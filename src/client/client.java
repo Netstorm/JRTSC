@@ -5,13 +5,10 @@ import java.net.*;
 
 
 
-
-
 public class client extends Thread
 {
     BufferedReader br1,socketReader;
     PrintWriter pw1;
-    Thread t1,t2;
     String st1,st2;
     Socket client;
     
@@ -33,28 +30,12 @@ public class client extends Thread
         }
     }
 
-public void setupClient()
+    public void setupClient()
     {
         try 
         {
-            /*if(Thread.currentThread()==t1)
-            {
-                do  
-                {
-                    st2=socketReader.readLine();
-                    System.out.println("Server:"+st2);
-                }while(!st2.equals("exit"));
-            }
-            else
-            {
-                while(true)
-                {
-                    st1=br1.readLine();
-                    pw1.println(st1);
-                    Thread.sleep(10);
-                }
-            } */
-
+            
+            //see what server has to say
             st2=socketReader.readLine();
             System.out.println("Server:"+st2);
             String password=br1.readLine();
@@ -63,22 +44,27 @@ public void setupClient()
             st2=socketReader.readLine();
             System.out.println("Server:"+st2);
 
+            //we are getting connected lets start keyboard listener,mouse listener etc
 
             if(st2.equals("Starting services"))
-            {
+            {  
+                //wait for server to kick in 
                Thread.sleep(3000);
-               clientKeyboard kk=new clientKeyboard(5000);
-               
-               System.out.println("YAY");
-                Thread td=new Thread(kk);
-                td.start();
-                //kk.run();
+
+
+               //start keyboard
+               clientKeyboard kb=new clientKeyboard(5000);
+               Thread keyboardThread=new Thread(kb);
+               keyboardThread.start();
+
+               //start everything else
+                
                 
             }
 
             else
             {
-                System.out.println("Something went wrong..");
+               System.out.println("Something went wrong..");
             }
 
 
@@ -92,9 +78,9 @@ public void setupClient()
         }
     }
 
-public void run(){
+    public void run()
+    {
     setupClient();
-
-}
+    }
 
 }

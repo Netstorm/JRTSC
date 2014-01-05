@@ -4,7 +4,8 @@ import java.net.*;
 import java.awt.Robot;
 
 
-public class serverKeyboard extends Thread {
+public class serverKeyboard extends Thread 
+{
 
 	BufferedReader keyboardBuffer,socketReader;
 	PrintWriter socketWriter;
@@ -13,9 +14,9 @@ public class serverKeyboard extends Thread {
 	Socket connection;
 
 	public serverKeyboard(int port)
-{
+	{
     try 
-    {
+    	{
         
         server=new ServerSocket(port);
         connection=server.accept();
@@ -23,13 +24,13 @@ public class serverKeyboard extends Thread {
         socketReader=new BufferedReader(new InputStreamReader(connection.getInputStream()));
         socketWriter=new PrintWriter(connection.getOutputStream(),true);
       
-    }
+    	}
 
     catch(Exception ee)
-    {
+    	{
         System.out.println(ee);
-    }
-}
+    	}
+	}
 
 	
 	
@@ -41,9 +42,7 @@ public class serverKeyboard extends Thread {
         
 		 Robot robot = new Robot();
         // Simulate a key press
-		 System.out.println("server key started");
         int key=Integer.parseInt(socketReader.readLine());
-        
         System.out.println("Key received is: "+key);
         //robot.keyPress(key);
         //robot.keyRelease(key);

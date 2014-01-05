@@ -7,9 +7,7 @@ class clientMain extends Thread {
 		client c=new client(port);
 		Thread t1=new Thread(c);
 		t1.start();
-		//clientKeyboard kb=new clientKeyboard(5000);
-		//Thread t2=new Thread(kb);
-		//t2.start();
+		
 		
 
 	}
