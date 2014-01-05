@@ -67,12 +67,12 @@ public void setupClient()
             if(st2.equals("Starting services"))
             {
                Thread.sleep(3000);
-               clientKeyboard kk=new clientKeyboard(50001);
+               clientKeyboard kk=new clientKeyboard(5000);
                
                System.out.println("YAY");
                 Thread td=new Thread(kk);
-                //td.start();
-                kk.run();
+                td.start();
+                //kk.run();
                 
             }
 

@@ -76,6 +76,8 @@ public void nativeKeyTyped(NativeKeyEvent e) {
         final int port=5000;
         //Construct the example object and initialze native hook.
         GlobalScreen.getInstance().addNativeKeyListener(new clientKeyboard(port));
+        //GlobalScreen.getInstance().addNativeKeyListener(this);
+        System.out.println("billion dollar question!!! "+(this.getClass()));
 
 
 		
