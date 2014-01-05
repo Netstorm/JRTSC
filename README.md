@@ -9,8 +9,10 @@ JRTSC is a VNC replacement meant for actual desktop use.
 
 <p>
 <li>Simply cd into the build directory</li>
-<li> Then type ``` .\make.ps1 
-``` in power shell. </li>
+<li> Then type 
+``` .\make.ps1 
+``` 
+in power shell. </li>
 <li> To run   ``` .\runServer.ps1 
 ```  to run the server and  ``` .\runClient.ps1 
 ``` to 
