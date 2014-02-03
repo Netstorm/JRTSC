@@ -1,4 +1,4 @@
-set-executionpolicy remotesigned
+set-executionpolicy unrestricted
 cd ..;
 cd ..;
 $path3="$pwd\JRTSC\src" -replace "\\","/";
