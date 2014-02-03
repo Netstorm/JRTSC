@@ -63,8 +63,14 @@ public void setupServer()
                 {   
                    System.out.println("Client Authenticated!");
                    socketWriter.println("Starting services");
+
                    serverKeyboard kb=new serverKeyboard(5000);
-                   kb.run();
+                   Thread keyboardThread=new Thread(kb);
+                   keyboardThread.start();
+
+                   serverMouse km=new serverMouse(5020);
+                   Thread mouseThread=new Thread(km);
+                   mouseThread.start();
                 }
                 else
                 {

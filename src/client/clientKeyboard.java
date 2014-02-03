@@ -22,7 +22,7 @@ public class clientKeyboard extends Thread implements NativeKeyListener
     	try
         {
             
-            client=new Socket("localhost",port);
+            client=new Socket("192.168.2.5",port);
             br1=new BufferedReader(new InputStreamReader(System.in));
             socketReader=new BufferedReader(new InputStreamReader(client.getInputStream()));
             pw1=new PrintWriter(client.getOutputStream(),true);

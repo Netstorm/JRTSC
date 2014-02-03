@@ -17,7 +17,7 @@ public class client extends Thread
         try
         {
             
-            client=new Socket("localhost",port);
+            client=new Socket("192.168.2.5",port);
             br1=new BufferedReader(new InputStreamReader(System.in));
             socketReader=new BufferedReader(new InputStreamReader(client.getInputStream()));
             pw1=new PrintWriter(client.getOutputStream(),true);
@@ -58,6 +58,10 @@ public class client extends Thread
                keyboardThread.start();
 
                //start everything else here
+
+               clientMouse km=new clientMouse(5020);
+               Thread mouseThread=new Thread(km);
+               mouseThread.start();
                 
                 
             }
