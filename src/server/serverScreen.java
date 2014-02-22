@@ -87,7 +87,7 @@ public class serverScreen extends Thread
 
               Robot robot = new Robot();
       
-              float quality= 0.2f;
+              float quality= 0.14f;
               Dimension size=Toolkit.getDefaultToolkit().getScreenSize();
               BufferedImage rawImg=null,prevImg=null;
 
@@ -150,7 +150,7 @@ public class serverScreen extends Thread
                   writer.dispose();
                   //outToClient.close();
                  // outToClient.flush();
-                  Thread.sleep(500);
+                 // Thread.sleep(200);
                   //toggle="2";
                 }
 
@@ -177,7 +177,7 @@ public class serverScreen extends Thread
 			try 
 			{
 				  streamScreen();
-				  Thread.sleep(100);
+				  //Thread.sleep(100);
 			}
 
 			catch(Exception e)
