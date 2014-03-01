@@ -1,0 +1,47 @@
+import client.*;
+import java.io.*;
+import javax.swing.*;
+import java.awt.*;
+
+
+
+class clientMain {
+  
+
+
+		public static void main(String[] args) throws IOException 
+	{
+		//final int port=6000;
+		//client c=new client(port);
+		//Thread t1=new Thread(c);
+		//t1.start();
+		clientGUI gui=new clientGUI();
+		gui.drawInitialGUI();
+		
+
+	}
+}
+
+class clientGUI {
+
+JTextField ipAddress=new JTextField();
+JButton startButton=new JButton("Connect: ");
+JLabel applicationName=new JLabel();
+	public void drawInitialGUI()
+	{
+
+
+	applicationName.setText("JRTSC");
+	ipAddress.setColumns(10);
+	JFrame f = new JFrame("JRTSC");
+	f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    f.setSize(400, 600);
+    Container content = f.getContentPane();
+    content.setBackground(Color.white);
+    content.setLayout(new WrapLayout());
+    content.add(applicationName); 
+    content.add(startButton);
+    content.add(ipAddress);
+    f.setVisible(true);
+	}
+}

@@ -30,11 +30,11 @@ public class clientScreen extends Thread
  // public Graphics graphics = null;
    
 
-  public clientScreen(int port)
+  public clientScreen(String host,int port)
   {
     try
     {
-      client=new Socket("localhost",port);
+      client=new Socket(host,port);
       is =new  BufferedInputStream(client.getInputStream());
     }
 

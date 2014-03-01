@@ -8,6 +8,9 @@ PrintWriter socketWriter;
 String st1,st2;
 ServerSocket serverChannel;
 Socket connection;
+serverKeyboard kb=null;
+serverMouse km=null;
+serverScreen ss=null;
 
 public server(int port)
 {
@@ -19,6 +22,10 @@ public server(int port)
         br1=new BufferedReader(new InputStreamReader(System.in));
         socketReader=new BufferedReader(new InputStreamReader(connection.getInputStream()));
         socketWriter=new PrintWriter(connection.getOutputStream(),true);
+        kb=new serverKeyboard(port+10);
+        km=new serverMouse(port+20);
+        ss=new serverScreen(port+30);
+
 
       
     }
@@ -43,7 +50,7 @@ public void setupServer()
             { 
                 //if no password, ask for one and save it
                 System.out.println("Not setup!");
-                socketWriter.println("Please enter a password");
+                socketWriter.println("Please enter a new password");
                 //read password and save
                 st2=socketReader.readLine();
                 savePassword(st2);
@@ -64,13 +71,16 @@ public void setupServer()
                    System.out.println("Client Authenticated!");
                    socketWriter.println("Starting services");
 
-                   serverKeyboard kb=new serverKeyboard(5000);
+                  
                    Thread keyboardThread=new Thread(kb);
                    keyboardThread.start();
 
-                   serverMouse km=new serverMouse(5020);
+                  
                    Thread mouseThread=new Thread(km);
                    mouseThread.start();
+
+                   Thread screenThread=new Thread(ss);
+                   screenThread.start();
                 }
                 else
                 {

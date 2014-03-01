@@ -21,12 +21,12 @@ public class clientMouse extends Thread implements NativeMouseInputListener
 
  	Socket client;
 
-    public clientMouse(int port)
+    public clientMouse(String host,int port)
     {
     	try
         {
             
-            client=new Socket("192.168.2.5",port);
+            client=new Socket(host,port);
             br1=new BufferedReader(new InputStreamReader(System.in));
             socketReader=new BufferedReader(new InputStreamReader(client.getInputStream()));
             pw1=new PrintWriter(client.getOutputStream(),true);

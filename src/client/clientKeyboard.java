@@ -17,12 +17,12 @@ public class clientKeyboard extends Thread implements NativeKeyListener
     public PrintWriter pw1;
  	Socket client;
 
-    public clientKeyboard(int port)
+    public clientKeyboard(String host,int port)
     {
     	try
         {
             
-            client=new Socket("192.168.2.5",port);
+            client=new Socket(host,port);
             br1=new BufferedReader(new InputStreamReader(System.in));
             socketReader=new BufferedReader(new InputStreamReader(client.getInputStream()));
             pw1=new PrintWriter(client.getOutputStream(),true);
