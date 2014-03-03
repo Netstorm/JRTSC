@@ -52,7 +52,8 @@ public class serverScreen extends Thread
   ServerSocket server;
   Socket connection;
   //BufferedOutputStream outToClient = null;
-  OutputStream outToClient=null;
+  DataOutputStream outToClient=null;
+    DataOutputStream dos=null;
   public serverScreen(int port)
   {
     try 
@@ -61,8 +62,8 @@ public class serverScreen extends Thread
         connection=server.accept();
         connection.setKeepAlive(true);
         connection.setSoTimeout(50000);
-        outToClient = (connection.getOutputStream());
-       
+       // outToClient = (connection.getOutputStream());
+        dos= new DataOutputStream(connection.getOutputStream());
         
     
     	}
@@ -87,7 +88,7 @@ public class serverScreen extends Thread
 
               Robot robot = new Robot();
       
-              float quality= 0.14f;
+              float quality= 0.4f;
               Dimension size=Toolkit.getDefaultToolkit().getScreenSize();
               BufferedImage rawImg=null,prevImg=null;
 
@@ -134,11 +135,17 @@ public class serverScreen extends Thread
                   
                   byte[] result=baos.toByteArray();
                   System.out.println("YES"+((result.length)));
-                  outToClient.flush();
-                  outToClient.write(result);
-                  outToClient.flush();
+                  //outToClient.flush();
+                  //outToClient.write(result);
+                 // outToClient.flush();
 
                   //connection.shutdownOutput();
+                  
+                  dos.writeInt(result.length);
+                  System.out.println(result.length);
+                  dos.write(result);
+                  dos.flush();
+
 
                   baos.flush();
                   baos.close();
@@ -148,6 +155,7 @@ public class serverScreen extends Thread
                   prevImg=null;
                   prevImg=rawImg;
                   writer.dispose();
+                  //Thread.sleep(1000);
                   //outToClient.close();
                  // outToClient.flush();
                  // Thread.sleep(200);

@@ -26,7 +26,9 @@ public class clientScreen extends Thread
   public Graphics g;
 
   //public JPanel cPanel=null;
-  BufferedInputStream is=null;
+ // BufferedInputStream is=null;
+    DataInputStream is=null;
+
  // public Graphics graphics = null;
    
 
@@ -35,7 +37,8 @@ public class clientScreen extends Thread
     try
     {
       client=new Socket(host,port);
-      is =new  BufferedInputStream(client.getInputStream());
+     // is =new  BufferedInputStream(client.getInputStream());
+      is =new  DataInputStream(client.getInputStream());
     }
 
     catch(Exception ee)
@@ -106,15 +109,18 @@ public class clientScreen extends Thread
         frame.add(panel);
         frame.validate(); // because you added panel after setVisible was called
         frame.repaint(); // because you added panel after setVisible was called
-      g= panel.getGraphics();
+      
 
 
   }
 
-  void refreshScreen(final BufferedImage bufImg)
+  void refreshScreen(final BufferedImage bufImg,JPanel panel)
   {
-    
+    g= panel.getGraphics();
+  // g.clearRect(0,0,bufImg.getWidth(),bufImg.getHeight());
     g.drawImage(bufImg, 0, 0, bufImg.getWidth(),bufImg.getHeight(),frame);
+    g.dispose();
+
   
   }
 
@@ -140,7 +146,7 @@ public class clientScreen extends Thread
         try 
         {
 
-          is.mark(819200);
+         // is.mark(819200);
           ByteArrayOutputStream baos = new ByteArrayOutputStream();
           byte buffer[] = new byte[1024];
 
@@ -148,25 +154,31 @@ public class clientScreen extends Thread
                    //{
                      //   baos.write(buffer, 0, s);
                     //}
-          byte[] sam=new byte[8192000];
-          if(is.read(sam)<5)
-          {
+         // byte[] sam=new byte[8192000];
+         //if(is.read(sam)<50)
+         // {
 
-            continue;
-          }
+       //     continue;
+      //    }
+
+           int len = is.readInt();
+              System.out.println(len);
+            byte data[] = null;
+             data = new byte[len];
+             is.readFully(data);
             
-          is.reset();
+         // is.reset();
           baos.flush();
           baos.close();
                    
 
-          InputStream in = new ByteArrayInputStream(sam);
+          InputStream in = new ByteArrayInputStream(data);
           bImageFromConvert = ImageIO.read(in);
                    
           if (bImageFromConvert!=null) 
           {
             System.out.println("Image received is -> "+bImageFromConvert.toString());
-            refreshScreen(bImageFromConvert);
+            refreshScreen(bImageFromConvert,panel);
          //     g.drawImage(bImageFromConvert, 0, 0, bImageFromConvert.getWidth(),bImageFromConvert.getHeight(),frame);
          
 
