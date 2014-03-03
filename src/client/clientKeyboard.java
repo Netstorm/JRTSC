@@ -55,7 +55,7 @@ public class clientKeyboard extends Thread implements NativeKeyListener
     public void nativeKeyReleased(NativeKeyEvent e) 
     {
         System.out.println("Key Released: " + e.getKeyCode());
-        pw1.println(e.getKeyCode()+"KR");
+       // pw1.println(e.getKeyCode()+"KR");
     }
 
     public void nativeKeyTyped(NativeKeyEvent e) 

@@ -52,12 +52,13 @@ public class serverKeyboard extends Thread
         	{
         		System.out.println("I will perform key press"+keyCode);
           		robot.keyPress(Integer.parseInt(keyCode));
+          		robot.keyRelease(Integer.parseInt(keyCode));
 
         	}
        	if(key.contains("KR"))
        		{
        			System.out.println("I will perform key release"+keyCode);
-       	  		robot.keyRelease(Integer.parseInt(keyCode));
+      // 	  		robot.keyRelease(Integer.parseInt(keyCode));
        		}
         
         

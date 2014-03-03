@@ -161,12 +161,11 @@ public class clientScreen extends Thread
        //     continue;
       //    }
 
-           int len = is.readInt();
-              System.out.println(len);
-            byte data[] = null;
-             data = new byte[len];
-             is.readFully(data);
-            
+          int len = is.readInt();
+          System.out.println(len);
+          byte data[] = null;
+          data = new byte[len];
+          is.readFully(data);
          // is.reset();
           baos.flush();
           baos.close();
