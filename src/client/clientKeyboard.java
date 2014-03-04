@@ -5,9 +5,10 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import java.net.*;
 import java.io.*;
+import java.awt.event.KeyListener;
+import  java.awt.Frame;
 
-
- class clientKeyboard extends KeyAdapter implements Runnable 
+public  class clientKeyboard extends Thread
 {
 
   BufferedReader br1,socketReader;
@@ -15,11 +16,11 @@ import java.io.*;
   Socket client;
   JFrame frame;
 
-  public clientKeyboard(String host,int port,JFrame jframe)
+  public clientKeyboard(String host,int port)
   {
     try
     {
-      frame=jframe;
+     
       client=new Socket(host,port);
       br1=new BufferedReader(new InputStreamReader(System.in));
       socketReader=new BufferedReader(new InputStreamReader(client.getInputStream()));
@@ -35,22 +36,41 @@ import java.io.*;
   }
 
 
-  public void keyPressed(KeyEvent e) 
-  {
-    System.out.println("Key Pressed: " + e.getKeyCode());
-    pw1.println(e.getKeyCode()+"KP");
-  }
-  
+    KeyListener listener = new KeyListener() {
 
-  public void keyReleased(KeyEvent e) 
-  {
-    System.out.println("Key Released: " + e.getKeyCode());
-    pw1.println(e.getKeyCode()+"KR");
-  }
+@Override
+
+public void keyPressed(KeyEvent event) {
+
+     System.out.println("Key Pressed "+event.getKeyCode());
+     pw1.println(event.getKeyCode()+"KP");
+
+}
+
+@Override
+
+public void keyReleased(KeyEvent event) {
+
+    System.out.println("Key Released "+event.getKeyCode());
+    pw1.println(event.getKeyCode()+"KR");
+
+}
+
+@Override
+
+public void keyTyped(KeyEvent event) {
+
+     System.out.println("Key Typed "+event.getKeyCode());
+
+}
+
+
+  };
 
   public void run()
   {
-    frame.addKeyListener(this);
+    Frame[] frames=Frame.getFrames();
+    frames[3].addKeyListener(listener);
   }
 }
 

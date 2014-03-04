@@ -22,9 +22,10 @@ public server(int port)
         br1=new BufferedReader(new InputStreamReader(System.in));
         socketReader=new BufferedReader(new InputStreamReader(connection.getInputStream()));
         socketWriter=new PrintWriter(connection.getOutputStream(),true);
-        kb=new serverKeyboard(port+10);
-        km=new serverMouse(port+20);
+        
         ss=new serverScreen(port+30);
+        kb=new serverKeyboard(port+10);
+
 
 
       
@@ -72,15 +73,17 @@ public void setupServer()
                    socketWriter.println("Starting services");
 
                   
-                   Thread keyboardThread=new Thread(kb);
-                   keyboardThread.start();
+                 
 
                   
-                   Thread mouseThread=new Thread(km);
-                   mouseThread.start();
+                   //Thread mouseThread=new Thread(km);
+                   //mouseThread.start();
 
                    Thread screenThread=new Thread(ss);
                    screenThread.start();
+
+                   Thread keyboardThread=new Thread(kb);
+                   keyboardThread.start();
                 }
                 else
                 {

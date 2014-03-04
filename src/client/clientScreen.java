@@ -24,7 +24,6 @@ public class clientScreen extends Thread
   public JFrame frame;
   public JPanel panel;
   public Graphics g;
-  public clientKeyboard kb;
 
   //public JPanel cPanel=null;
  // BufferedInputStream is=null;
@@ -38,9 +37,16 @@ public class clientScreen extends Thread
     try
     {
       client=new Socket(host,port);
-     // is =new  BufferedInputStream(client.getInputStream());
       is =new  DataInputStream(client.getInputStream());
-      kb=new clientKeyboard(host,port+10,frame);
+      try
+      {
+        drawGUI();
+      }
+      catch(Exception ex)
+      {
+        System.err.println(ex);
+      }
+
     }
 
     catch(Exception ee)
@@ -51,7 +57,10 @@ public class clientScreen extends Thread
  	
   }
 
-  
+  public JFrame getApplicationFrame()
+  {
+    return frame;
+  }
    
     
   public void run()
@@ -112,8 +121,8 @@ public class clientScreen extends Thread
         frame.validate(); // because you added panel after setVisible was called
         frame.repaint(); // because you added panel after setVisible was called
 
-        Thread keyboardThread=new Thread(kb);
-        keyboardThread.start();
+
+        
       
 
 
@@ -138,14 +147,7 @@ public class clientScreen extends Thread
       BufferedImage bImageFromConvert =null;
       int count=0;
 
-      try
-      {
-        drawGUI();
-      }
-      catch(Exception ex)
-      {
-        System.err.println(ex);
-      }
+     
       while(true)
       {    
         try 
@@ -167,7 +169,7 @@ public class clientScreen extends Thread
       //    }
 
           int len = is.readInt();
-          System.out.println(len);
+        //  System.out.println(len);
           byte data[] = null;
           data = new byte[len];
           is.readFully(data);
@@ -181,7 +183,7 @@ public class clientScreen extends Thread
                    
           if (bImageFromConvert!=null) 
           {
-            System.out.println("Image received is -> "+bImageFromConvert.toString());
+         //   System.out.println("Image received is -> "+bImageFromConvert.toString());
             refreshScreen(bImageFromConvert,panel);
          //     g.drawImage(bImageFromConvert, 0, 0, bImageFromConvert.getWidth(),bImageFromConvert.getHeight(),frame);
          

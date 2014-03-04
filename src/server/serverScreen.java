@@ -106,14 +106,14 @@ public class serverScreen extends Thread
 
                 if(bufferedImagesEqual(rawImg,prevImg))
                 {
-                 System.out.println("Both are same");
+                // System.out.println("Both are same");
                  continue; 
                 }
 
                 else
                 {
               
-                  System.out.println("its different");
+                 // System.out.println("its different");
                   
                   Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("jpg");
 
@@ -134,7 +134,7 @@ public class serverScreen extends Thread
                   writer.write(null, new IIOImage(rawImg, null, null), param);
                   
                   byte[] result=baos.toByteArray();
-                  System.out.println("YES"+((result.length)));
+                 // System.out.println("YES"+((result.length)));
                   //outToClient.flush();
                   //outToClient.write(result);
                  // outToClient.flush();
@@ -142,7 +142,7 @@ public class serverScreen extends Thread
                   //connection.shutdownOutput();
                   
                   dos.writeInt(result.length);
-                  System.out.println(result.length);
+                 // System.out.println(result.length);
                   dos.write(result);
                   dos.flush();
 

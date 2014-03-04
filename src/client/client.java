@@ -15,10 +15,11 @@ public class client extends Thread
     Socket client;
     JFrame f1 = new JFrame("JRTSC");
     JFrame f2 = new JFrame("JRTSC");
-    clientKeyboard kb=null;
+   public  clientKeyboard kb=null;
     clientMouse km=null;
     clientScreen cs=null;
-    
+    clientKeyboardDelegate obj=null;
+     
     public client(String host,int port)
     {
         try
@@ -28,10 +29,10 @@ public class client extends Thread
             br1=new BufferedReader(new InputStreamReader(System.in));
             socketReader=new BufferedReader(new InputStreamReader(client.getInputStream()));
             pw1=new PrintWriter(client.getOutputStream(),true);
-           // kb=new clientKeyboard(host,port+10);
-           // km=new clientMouse(host,port+20);
             cs=new clientScreen(host,port+30);
-          
+            obj=new clientKeyboardDelegate(host,port+10);
+
+            
         }
 
         catch(Exception ee)
@@ -57,7 +58,7 @@ public class client extends Thread
                 JButton setup=new JButton("Setup");
 
                 JLabel instructions=new JLabel();
-                instructions.setText("It appears that the setup hasn't been setup yet or the configuration is deleted by the admin.");
+                instructions.setText("It appears that JRTSC hasn't been setup yet or the configuration has been deleted by the admin.");
                 JLabel instructions2=new JLabel();
                 instructions2.setText("You can set it up now. Enter a password to do so.");
                 JLabel appName=new JLabel();
@@ -265,25 +266,19 @@ public class client extends Thread
                 //wait for server to kick in 
                 try
                 {
-                Thread.sleep(3000);
-               //start keyboard
-                
-                //Thread keyboardThread=new Thread(kb);
-                //keyboardThread.start();
-
-               //start everything else here
-
+                    Thread.sleep(3000);
                
-                Thread mouseThread=new Thread(km);
-                mouseThread.start();
+                    Thread screenThread=new Thread(cs);
+                    screenThread.start();
+           
+        
+                    Thread lol=new Thread(obj);
+                    lol.start();
 
-                Thread screenThread=new Thread(cs);
-                screenThread.start();
-                
                 }
                 catch(Exception e)
                 {
-
+                    System.out.println(e);
                 }
                 
             }
