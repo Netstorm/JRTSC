@@ -24,6 +24,7 @@ public class clientScreen extends Thread
   public JFrame frame;
   public JPanel panel;
   public Graphics g;
+  public clientKeyboard kb;
 
   //public JPanel cPanel=null;
  // BufferedInputStream is=null;
@@ -39,6 +40,7 @@ public class clientScreen extends Thread
       client=new Socket(host,port);
      // is =new  BufferedInputStream(client.getInputStream());
       is =new  DataInputStream(client.getInputStream());
+      kb=new clientKeyboard(host,port+10,frame);
     }
 
     catch(Exception ee)
@@ -109,6 +111,9 @@ public class clientScreen extends Thread
         frame.add(panel);
         frame.validate(); // because you added panel after setVisible was called
         frame.repaint(); // because you added panel after setVisible was called
+
+        Thread keyboardThread=new Thread(kb);
+        keyboardThread.start();
       
 
 

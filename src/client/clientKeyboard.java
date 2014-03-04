@@ -1,95 +1,60 @@
 package client;
-import java.awt.Robot;
-import java.io.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
 import java.net.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.io.*;
 
-import org.jnativehook.GlobalScreen;
-import org.jnativehook.NativeHookException;
-import org.jnativehook.keyboard.NativeKeyEvent;
-import org.jnativehook.keyboard.NativeKeyListener;
 
-public class clientKeyboard extends Thread implements NativeKeyListener 
+ class clientKeyboard extends KeyAdapter implements Runnable 
 {
 
-	BufferedReader br1,socketReader;
-    public PrintWriter pw1;
- 	Socket client;
+  BufferedReader br1,socketReader;
+  public PrintWriter pw1;
+  Socket client;
+  JFrame frame;
 
-    public clientKeyboard(String host,int port)
+  public clientKeyboard(String host,int port,JFrame jframe)
+  {
+    try
     {
-    	try
-        {
-            
-            client=new Socket(host,port);
-            br1=new BufferedReader(new InputStreamReader(System.in));
-            socketReader=new BufferedReader(new InputStreamReader(client.getInputStream()));
-            pw1=new PrintWriter(client.getOutputStream(),true);
-            
-        }
-
-        catch(Exception ee)
-        {
-            System.out.println(ee);
-        }
-    	
- 	
+      frame=jframe;
+      client=new Socket(host,port);
+      br1=new BufferedReader(new InputStreamReader(System.in));
+      socketReader=new BufferedReader(new InputStreamReader(client.getInputStream()));
+      pw1=new PrintWriter(client.getOutputStream(),true);
     }
 
-    //if key is pressed send the keycode to the server
-    //There are two main events key press and key release 
-
-    public void nativeKeyPressed(NativeKeyEvent e) 
+    catch(Exception ee)
     {
-        System.out.println("Key Pressed: " + e.getKeyCode());
-        pw1.println(e.getKeyCode()+"KP");
-
-        if (e.getKeyCode() == NativeKeyEvent.VK_ESCAPE) 
-        {
-                GlobalScreen.unregisterNativeHook();
-               // pw1.println(e.getKeyCode());
-        }
+      System.out.println(ee);
     }
-
-    public void nativeKeyReleased(NativeKeyEvent e) 
-    {
-        System.out.println("Key Released: " + e.getKeyCode());
-       // pw1.println(e.getKeyCode()+"KR");
-    }
-
-    public void nativeKeyTyped(NativeKeyEvent e) 
-    {
-        //System.out.println("Key Typed: " + e.getKeyText(e.getKeyCode()));
-        //pw1.println(e.getKeyCode());
-    }
-   
-    
-    public void run()
-	{
-
-        try 
-        {
-            GlobalScreen.registerNativeHook();
-        }
-        catch (NativeHookException ex) 
-        {
-            System.err.println("There was a problem registering the native hook.");
-            System.err.println(ex.getMessage());
-            System.exit(1);
-        }
-
-        final int port=5000;
-        //Construct the keyboardClient object and initialze native hook.
-        GlobalScreen.getInstance().addNativeKeyListener(this);
-       
+      
+  
+  }
 
 
-		
-	}
+  public void keyPressed(KeyEvent e) 
+  {
+    System.out.println("Key Pressed: " + e.getKeyCode());
+    pw1.println(e.getKeyCode()+"KP");
+  }
+  
+
+  public void keyReleased(KeyEvent e) 
+  {
+    System.out.println("Key Released: " + e.getKeyCode());
+    pw1.println(e.getKeyCode()+"KR");
+  }
+
+  public void run()
+  {
+    frame.addKeyListener(this);
+  }
 }
 
-	
+  
     
 
  

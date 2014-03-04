@@ -28,8 +28,8 @@ public class client extends Thread
             br1=new BufferedReader(new InputStreamReader(System.in));
             socketReader=new BufferedReader(new InputStreamReader(client.getInputStream()));
             pw1=new PrintWriter(client.getOutputStream(),true);
-            kb=new clientKeyboard(host,port+10);
-            km=new clientMouse(host,port+20);
+           // kb=new clientKeyboard(host,port+10);
+           // km=new clientMouse(host,port+20);
             cs=new clientScreen(host,port+30);
           
         }
@@ -268,8 +268,8 @@ public class client extends Thread
                 Thread.sleep(3000);
                //start keyboard
                 
-                Thread keyboardThread=new Thread(kb);
-                keyboardThread.start();
+                //Thread keyboardThread=new Thread(kb);
+                //keyboardThread.start();
 
                //start everything else here
 
