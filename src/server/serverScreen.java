@@ -88,7 +88,7 @@ public class serverScreen extends Thread
 
               Robot robot = new Robot();
       
-              float quality= 0.4f;
+              float quality= 0.5f;
               Dimension size=Toolkit.getDefaultToolkit().getScreenSize();
               BufferedImage rawImg=null,prevImg=null;
 

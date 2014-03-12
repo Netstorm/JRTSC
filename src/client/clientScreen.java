@@ -95,7 +95,7 @@ public class clientScreen extends Thread
       //JPanel cPanel = new JPanel();
       //ImageIcon imageIcon= new ImageIcon(image);
       //Image image = imageIcon.getImage();
-      //image = image.getScaledInstance(cPanel.getWidth(),cPanel.getHeight(),Image.SCALE_FAST);
+      //
    //Graphics graphics = cPanel.getGraphics();
     //graphics.drawImage(image, 0, 0, 1920,1080,cPanel);
 
@@ -108,13 +108,13 @@ public class clientScreen extends Thread
         frame = new JFrame("Server Screen");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        frame.setSize(1920, 1080);
-
+        //frame.setSize(1920, 1080);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         panel = new JPanel(false) {
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                g.drawImage(image, 0, 0, image.getWidth(),image.getHeight(),frame);
+                g.drawImage(image, 0, 0,frame);
             }
         };
         frame.add(panel);
@@ -132,7 +132,8 @@ public class clientScreen extends Thread
   {
     g= panel.getGraphics();
   // g.clearRect(0,0,bufImg.getWidth(),bufImg.getHeight());
-    g.drawImage(bufImg, 0, 0, bufImg.getWidth(),bufImg.getHeight(),frame);
+    //Image image = bufImg.getScaledInstance(frame.getWidth(),frame.getHeight(),Image.SCALE_FAST);
+    g.drawImage(bufImg, 0, 0, frame.getContentPane().getWidth(),frame.getContentPane().getHeight(),frame);
     g.dispose();
 
   

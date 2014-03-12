@@ -1,109 +1,132 @@
 package client;
-import java.awt.Robot;
-import java.io.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
 import java.net.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.io.*;
+import java.awt.event.KeyListener;
+import  java.awt.Frame;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-import org.jnativehook.GlobalScreen;
-import org.jnativehook.NativeHookException;
-import org.jnativehook.mouse.NativeMouseEvent;
-import org.jnativehook.mouse.NativeMouseInputListener;
-
-
-import java.lang.reflect.*;
-public class clientMouse extends Thread implements NativeMouseInputListener  
+public  class clientMouse extends Thread
 {
 
-	BufferedReader br1,socketReader;
-    public PrintWriter pw1;
-    
+  BufferedReader br1,socketReader;
+  public PrintWriter pw1;
+  Socket client;
+  JFrame frame;
+  double titleBar=0;
+  double border=0;
+  double serverScreenHeight=0;
+  double serverScreenWidth=0;
 
- 	Socket client;
-
-    public clientMouse(String host,int port)
+  public clientMouse(String host,int port)
+  {
+    try
     {
-    	try
-        {
-            
-            client=new Socket(host,port);
-            br1=new BufferedReader(new InputStreamReader(System.in));
-            socketReader=new BufferedReader(new InputStreamReader(client.getInputStream()));
-            pw1=new PrintWriter(client.getOutputStream(),true);
-           
-            
-            
-        }
+     
+      client=new Socket(host,port);
+      br1=new BufferedReader(new InputStreamReader(System.in));
+      socketReader=new BufferedReader(new InputStreamReader(client.getInputStream()));
+      pw1=new PrintWriter(client.getOutputStream(),true);
 
-        catch(Exception ee)
-        {
-            System.out.println(ee);
-        }
-    	
- 	
+      try
+      {
+        serverScreenHeight=Double.parseDouble(socketReader.readLine());
+        serverScreenWidth=Double.parseDouble(socketReader.readLine());
+      }
+      catch(Exception e)
+      {
+        System.err.println(e);
+      }
+
     }
 
-    //if key is pressed send the keycode to the server
-    //There are two main events key press and key release 
-
-
-
-     public void nativeMouseClicked(NativeMouseEvent e) {
-                System.out.println("Mosue Clicked: " + e.getClickCount());
-                //pw1.println(e.getClickCount()+"MC");
+    catch(Exception ee)
+    {
+      System.out.println(ee);
+    }
       
-        }
-
-        public void nativeMousePressed(NativeMouseEvent e) {
-                System.out.println("Mosue Pressed: " + e.getButton());
-                pw1.println(e.getButton()+"MP"+" "+"X"+e.getX()+" "+"Y"+e.getY());
   
-                
-        }
-
-        public void nativeMouseReleased(NativeMouseEvent e) {
-                System.out.println("Mosue Released: " + e.getButton());
-                pw1.println(e.getButton()+"MR"+" "+"X"+e.getX()+" "+"Y"+e.getY());
-
-        }
-
-        public void nativeMouseMoved(NativeMouseEvent e) {
-               System.out.println("Mosue Moved: " + e.getX() + ", " + e.getY());
-        }
-
-        public void nativeMouseDragged(NativeMouseEvent e) {
-                System.out.println("Mosue Dragged: " + e.getX() + ", " + e.getY());
-        }
+  }
 
 
-    
-    public void run()
-	{
+    MouseListener listener = new MouseListener() {
 
-        try 
-        {
-            GlobalScreen.registerNativeHook();
-        }
-        catch (NativeHookException ex) 
-        {
-            System.err.println("There was a problem registering the native hook.");
-            System.err.println(ex.getMessage());
-            System.exit(1);
-        }
+@Override
 
-        
-        //Construct the keyboardClient object and initialze native hook.
-         //GlobalScreen.getInstance().addNativeKeyListener(this);
-         GlobalScreen.getInstance().addNativeMouseListener(this);
-         GlobalScreen.getInstance().addNativeMouseMotionListener(this);
-       
-
-
-		
-	}
+public void mouseClicked(MouseEvent arg0) {
+ 
 }
 
-	
+public void mouseExited(MouseEvent arg0) {
+
+}
+
+public void mouseEntered(MouseEvent arg0) {
+
+}
+
+public void mousePressed(MouseEvent arg0) {
+  System.out.println("Mouse press");
+  System.out.println("X -> "+getRealX(arg0.getX())+" Y -> "+getRealY(arg0.getY())+" Button -> "+arg0.getButton());
+  pw1.println(getRealX(arg0.getX())+" "+getRealY(arg0.getY())+" "+arg0.getButton()+" MP");
+}
+
+public void mouseReleased(MouseEvent arg0) {
+
+    System.out.println("Mouse release"); 
+    System.out.println("X -> "+getRealX(arg0.getX())+" Y -> "+getRealY(arg0.getY())+" Button -> "+arg0.getButton());
+    pw1.println(getRealX(arg0.getX())+" "+getRealY(arg0.getY())+" "+arg0.getButton()+" MR");
+}
+
+
+  };
+
+  public int getRealX(int x)
+  {
+    
+    double dX=(double)x;
+    double scaleFactor=serverScreenWidth/(frame.getContentPane().getWidth());
+    double realX=(double)(dX-border);
+    return (int)(scaleFactor*realX);
+  }
+
+  public int getRealY(int y)
+  {
+
+  
+    double dY=(double)y;
+    double scaleFactor=serverScreenHeight/(frame.getContentPane().getHeight());
+    double realY=(double)(dY-titleBar);
+    return (int)(scaleFactor*realY);
+  }
+
+  
+
+  public void run()
+  {
+    
+ 
+    Frame[] frames=Frame.getFrames();
+    for(int i=0;i<frames.length;i++)
+    {
+      System.out.println(frames[i].toString());
+    }
+    frame=(JFrame) frames[3];
+  
+    border=((frame.getWidth())-(frame.getContentPane().getWidth()))/2;
+    titleBar=((frame.getHeight())-(frame.getContentPane().getHeight()))-border;
+    System.out.println("Title bar -> "+titleBar);
+    System.out.println("Border -> "+border);
+    frames[3].addMouseListener(listener);
+  }
+}
+
+  
     
 
  

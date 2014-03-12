@@ -15,11 +15,11 @@ public class client extends Thread
     Socket client;
     JFrame f1 = new JFrame("JRTSC");
     JFrame f2 = new JFrame("JRTSC");
-   public  clientKeyboard kb=null;
+    clientKeyboard kb=null;
     clientMouse km=null;
     clientScreen cs=null;
-    clientKeyboardDelegate obj=null;
-     
+    clientKeyboardDelegate clientKeyboard=null;
+    clientMouseDelegate clientMouse=null; 
     public client(String host,int port)
     {
         try
@@ -30,7 +30,9 @@ public class client extends Thread
             socketReader=new BufferedReader(new InputStreamReader(client.getInputStream()));
             pw1=new PrintWriter(client.getOutputStream(),true);
             cs=new clientScreen(host,port+30);
-            obj=new clientKeyboardDelegate(host,port+10);
+            clientKeyboard=new clientKeyboardDelegate(host,port+10);
+            clientMouse=new clientMouseDelegate(host,port+20);
+
 
             
         }
@@ -272,8 +274,12 @@ public class client extends Thread
                     screenThread.start();
            
         
-                    Thread lol=new Thread(obj);
-                    lol.start();
+                    Thread keyboardThread=new Thread(clientKeyboard);
+                    keyboardThread.start();
+
+                    Thread mouseThread=new Thread(clientMouse);
+                    mouseThread.start();
+                    System.out.println("Trying to start mouse thread");
 
                 }
                 catch(Exception e)

@@ -88,7 +88,7 @@ public class serverKeyboard extends Thread
 			try 
 			{
 				controlKeyboard();
-				Thread.sleep(100);
+				//Thread.sleep(100);
 			}
 			catch(Exception e)
 			{

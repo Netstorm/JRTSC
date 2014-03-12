@@ -9,7 +9,7 @@ String st1,st2;
 ServerSocket serverChannel;
 Socket connection;
 serverKeyboard kb=null;
-serverMouse km=null;
+serverMouse sm=null;
 serverScreen ss=null;
 
 public server(int port)
@@ -25,6 +25,7 @@ public server(int port)
         
         ss=new serverScreen(port+30);
         kb=new serverKeyboard(port+10);
+        sm=new serverMouse(port+20);
 
 
 
@@ -69,21 +70,21 @@ public void setupServer()
                 //pass is correct?
                 if(st2.equals(passwd.trim()))
                 {   
-                   System.out.println("Client Authenticated!");
-                   socketWriter.println("Starting services");
+                  System.out.println("Client Authenticated!");
+                  socketWriter.println("Starting services");
 
-                  
-                 
 
-                  
-                   //Thread mouseThread=new Thread(km);
-                   //mouseThread.start();
+                  Thread screenThread=new Thread(ss);
+                  screenThread.start();
 
-                   Thread screenThread=new Thread(ss);
-                   screenThread.start();
+                  Thread keyboardThread=new Thread(kb);
+                  keyboardThread.start();
 
-                   Thread keyboardThread=new Thread(kb);
-                   keyboardThread.start();
+                  Thread mouseThread=new Thread(sm);
+                  mouseThread.start();
+
+
+
                 }
                 else
                 {

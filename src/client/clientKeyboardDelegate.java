@@ -5,7 +5,8 @@ class clientKeyboardDelegate extends Thread
 	clientKeyboard c=null;
 	public clientKeyboardDelegate(String host,int port)
 	{
-		 c=new clientKeyboard(host,port);
+		
+		c=new clientKeyboard(host,port);
 	}
 	public void  run() 
 	{
