@@ -21,7 +21,6 @@ public class serverMouse extends Thread
         
         server=new ServerSocket(port);
        	connection=server.accept();
-        //keyboardBuffer=new BufferedReader(new InputStreamReader(System.in));
         socketReader=new BufferedReader(new InputStreamReader(connection.getInputStream()));
         socketWriter=new PrintWriter(connection.getOutputStream(),true);
 
@@ -107,7 +106,6 @@ public class serverMouse extends Thread
 			try 
 			{
 				controlMouse();
-				//Thread.sleep(100);
 			}
 			catch(Exception e)
 			{

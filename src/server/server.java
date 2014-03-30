@@ -38,7 +38,6 @@ public server(int port)
     catch(Exception ee)
     {
         System.out.println(ee);
-        System.out.println("after socket created");
     }
 }
 public void setupServer()

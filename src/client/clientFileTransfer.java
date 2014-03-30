@@ -26,7 +26,6 @@ ObjectOutputStream oos ;
     	try
     	{
       	client=new Socket(host,port);
-    	//ois= new ObjectInputStream(client.getInputStream());
        	oos= new ObjectOutputStream(client.getOutputStream());
     	}
 
@@ -125,7 +124,7 @@ ObjectOutputStream oos ;
         oos.writeObject(f.getName());
         oos.flush();
         oos.writeObject(readSmallBinaryFile(filename));
-        System.out.println("File length -> "+f.length());
+        
         
     }
 

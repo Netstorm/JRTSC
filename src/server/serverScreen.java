@@ -51,7 +51,6 @@ public class serverScreen extends Thread
   String st1,st2;
   ServerSocket server;
   Socket connection;
-  //BufferedOutputStream outToClient = null;
   DataOutputStream outToClient=null;
     DataOutputStream dos=null;
   public serverScreen(int port)
@@ -62,7 +61,6 @@ public class serverScreen extends Thread
         connection=server.accept();
         connection.setKeepAlive(true);
         connection.setSoTimeout(50000);
-       // outToClient = (connection.getOutputStream());
         dos= new DataOutputStream(connection.getOutputStream());
         
     
@@ -106,15 +104,12 @@ public class serverScreen extends Thread
 
                 if(bufferedImagesEqual(rawImg,prevImg))
                 {
-                // System.out.println("Both are same");
                  continue; 
                 }
 
                 else
                 {
               
-                 // System.out.println("its different");
-                  
                   Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("jpg");
 
                   if (!writers.hasNext())
@@ -134,15 +129,8 @@ public class serverScreen extends Thread
                   writer.write(null, new IIOImage(rawImg, null, null), param);
                   
                   byte[] result=baos.toByteArray();
-                 // System.out.println("YES"+((result.length)));
-                  //outToClient.flush();
-                  //outToClient.write(result);
-                 // outToClient.flush();
-
-                  //connection.shutdownOutput();
                   
                   dos.writeInt(result.length);
-                 // System.out.println(result.length);
                   dos.write(result);
                   dos.flush();
 
@@ -155,11 +143,7 @@ public class serverScreen extends Thread
                   prevImg=null;
                   prevImg=rawImg;
                   writer.dispose();
-                  //Thread.sleep(1000);
-                  //outToClient.close();
-                 // outToClient.flush();
-                 // Thread.sleep(200);
-                  //toggle="2";
+            
                 }
 
               }
@@ -170,9 +154,6 @@ public class serverScreen extends Thread
 		catch (Exception e) 
 		{
         	e.printStackTrace();
-          System.out.println("WOW SOME EXCEPTION!");
-
-
 		}
 
 	}
@@ -185,7 +166,6 @@ public class serverScreen extends Thread
 			try 
 			{
 				  streamScreen();
-				  //Thread.sleep(100);
 			}
 
 			catch(Exception e)
@@ -240,7 +220,7 @@ public class serverScreen extends Thread
                   } 
                   catch (FileNotFoundException ex) 
                   {
-                    // Do exception handling
+                    System.err.println(ex);
                   }
                   BufferedInputStream bis = new BufferedInputStream(fis);
 

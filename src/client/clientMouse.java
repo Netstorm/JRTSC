@@ -110,20 +110,18 @@ public void mouseReleased(MouseEvent arg0) {
   public void run()
   {
     
- 
-    Frame[] frames=Frame.getFrames();
-    for(int i=0;i<frames.length;i++)
-    {
-      System.out.println(frames[i].toString());
-    }
-    frame=(JFrame) frames[3];
-  
-    border=((frame.getWidth())-(frame.getContentPane().getWidth()))/2;
-    titleBar=((frame.getHeight())-(frame.getContentPane().getHeight()))-border;
-    System.out.println("Title bar -> "+titleBar);
-    System.out.println("Border -> "+border);
-    frames[3].addMouseListener(listener);
+  Frame[] frames=Frame.getFrames();
+  for(int i=0;i<frames.length;i++)
+  {
+    System.out.println(frames[i].toString());
   }
+  frame=(JFrame) frames[3];
+  
+  border=((frame.getWidth())-(frame.getContentPane().getWidth()))/2;
+  titleBar=(((frame.getHeight())-(frame.getContentPane().getHeight()))-border)+22;
+  frames[3].addMouseListener(listener);
+  }
+  
 }
 
   

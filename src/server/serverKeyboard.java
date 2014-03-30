@@ -20,9 +20,7 @@ public class serverKeyboard extends Thread
         
         server=new ServerSocket(port);
        	connection=server.accept();
-        //keyboardBuffer=new BufferedReader(new InputStreamReader(System.in));
         socketReader=new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        //socketWriter=new PrintWriter(connection.getOutputStream(),true);
       
     	}
 
@@ -54,7 +52,6 @@ public class serverKeyboard extends Thread
         	{
         		System.out.println("I will perform key press"+keyCode);
           		robot.keyPress(Integer.parseInt(keyCode));
-          		//robot.keyRelease(Integer.parseInt(keyCode));
 
         	}
        	if(key.contains("KR"))
@@ -88,7 +85,6 @@ public class serverKeyboard extends Thread
 			try 
 			{
 				controlKeyboard();
-				//Thread.sleep(100);
 			}
 			catch(Exception e)
 			{
