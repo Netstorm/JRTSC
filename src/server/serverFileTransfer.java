@@ -64,6 +64,7 @@ public class serverFileTransfer extends Thread
 			}
 			catch(Exception e)
 			{
+				System.exit(0);
 				e.printStackTrace();
 			}
 		}

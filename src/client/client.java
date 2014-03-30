@@ -6,7 +6,8 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.UIManager.*;
-
+import java.security.*;
+import java.math.BigInteger;
 public class client extends Thread
 {
     BufferedReader br1,socketReader;
@@ -46,6 +47,15 @@ public class client extends Thread
         }
     }
 
+    private static String encryptPassword(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+
+    MessageDigest crypt = MessageDigest.getInstance("SHA-1");
+    crypt.reset();
+    crypt.update(password.getBytes("UTF-8"));
+
+    return new BigInteger(1, crypt.digest()).toString(16);
+}
+
 
 
     public void setupClient()
@@ -84,7 +94,14 @@ public class client extends Thread
                 setup.addActionListener(new ActionListener() 
                 { 
                 public void actionPerformed(ActionEvent e) { 
-                setupPassword(passwordField,confirmPasswordField);
+                    try
+                    {
+                        setupPassword(passwordField,confirmPasswordField);
+                    }
+                    catch(Exception ee)
+                    {
+                        System.out.println(ee);
+                    }
                 }});
 
 
@@ -172,7 +189,16 @@ public class client extends Thread
                 authenticate.addActionListener(new ActionListener() 
                 { 
                 public void actionPerformed(ActionEvent e) { 
-                authenticatePassword(passwordField);
+                    try
+                    {
+                        authenticatePassword(passwordField);
+                    }
+
+                    catch(Exception ee)
+                    {
+                        System.err.println(ee);
+                    }
+                
                 }});
 
 
@@ -233,7 +259,7 @@ public class client extends Thread
         }
     }
 
-    public void setupPassword(JPasswordField pass,JPasswordField confirmPass)
+    public void setupPassword(JPasswordField pass,JPasswordField confirmPass) throws NoSuchAlgorithmException
     {
         String password=new String(pass.getPassword());
         String confirmPassword=new String(confirmPass.getPassword());
@@ -243,7 +269,14 @@ public class client extends Thread
         }
         else
         {
-            pw1.println(password);
+            try
+            {
+               pw1.println(encryptPassword(password)); 
+            }
+            catch(Exception ee)
+            {
+                System.err.println(ee);
+            }
             f1.setVisible(false);
         }
     }
@@ -251,7 +284,14 @@ public class client extends Thread
     public void authenticatePassword(JPasswordField pass) 
     {
         String password=new String(pass.getPassword());
-        pw1.println(password);
+        try
+        {
+          pw1.println(encryptPassword(password));  
+        }
+        catch(Exception ee)
+        {
+            System.err.println(ee);
+        }
         f2.setVisible(false);
 
         try 
