@@ -20,6 +20,7 @@ public class client extends Thread
     clientScreen cs=null;
     clientKeyboardDelegate clientKeyboard=null;
     clientMouseDelegate clientMouse=null; 
+    clientFileTransferDelegate clientFile=null;
     public client(String host,int port)
     {
         try
@@ -29,9 +30,11 @@ public class client extends Thread
             br1=new BufferedReader(new InputStreamReader(System.in));
             socketReader=new BufferedReader(new InputStreamReader(client.getInputStream()));
             pw1=new PrintWriter(client.getOutputStream(),true);
-            cs=new clientScreen(host,port+30);
             clientKeyboard=new clientKeyboardDelegate(host,port+10);
             clientMouse=new clientMouseDelegate(host,port+20);
+            cs=new clientScreen(host,port+30);
+            clientFile=new clientFileTransferDelegate(host,port+40);
+
 
 
             
@@ -280,6 +283,9 @@ public class client extends Thread
                     Thread mouseThread=new Thread(clientMouse);
                     mouseThread.start();
                     System.out.println("Trying to start mouse thread");
+
+                    Thread fileTransferThread=new Thread(clientFile);
+                    fileTransferThread.start();
 
                 }
                 catch(Exception e)

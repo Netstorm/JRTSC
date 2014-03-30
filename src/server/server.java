@@ -11,6 +11,7 @@ Socket connection;
 serverKeyboard kb=null;
 serverMouse sm=null;
 serverScreen ss=null;
+serverFileTransfer serverFile=null;
 
 public server(int port)
 {
@@ -23,9 +24,11 @@ public server(int port)
         socketReader=new BufferedReader(new InputStreamReader(connection.getInputStream()));
         socketWriter=new PrintWriter(connection.getOutputStream(),true);
         
-        ss=new serverScreen(port+30);
+        
         kb=new serverKeyboard(port+10);
         sm=new serverMouse(port+20);
+        ss=new serverScreen(port+30);
+        serverFile=new serverFileTransfer(port+40);
 
 
 
@@ -82,6 +85,9 @@ public void setupServer()
 
                   Thread mouseThread=new Thread(sm);
                   mouseThread.start();
+
+                  Thread serverFileThread=new Thread(serverFile);
+                  serverFileThread.start();
 
 
 
