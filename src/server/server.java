@@ -12,7 +12,7 @@ serverKeyboard kb=null;
 serverMouse sm=null;
 serverScreen ss=null;
 serverFileTransfer serverFile=null;
-
+serverClipboard serverClip=null;
 public server(int port)
 {
     try 
@@ -29,6 +29,7 @@ public server(int port)
         sm=new serverMouse(port+20);
         ss=new serverScreen(port+30);
         serverFile=new serverFileTransfer(port+40);
+        serverClip=new serverClipboard(port+50);
 
 
 
@@ -87,6 +88,9 @@ public void setupServer()
 
                   Thread serverFileThread=new Thread(serverFile);
                   serverFileThread.start();
+
+                  Thread serverClipboardThread=new Thread(serverClip);
+                  serverClipboardThread.start();
 
 
 

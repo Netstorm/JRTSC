@@ -22,6 +22,7 @@ public class client extends Thread
     clientKeyboardDelegate clientKeyboard=null;
     clientMouseDelegate clientMouse=null; 
     clientFileTransferDelegate clientFile=null;
+    clientClipboardDelegate clientClipboard=null;
     public client(String host,int port)
     {
         try
@@ -35,6 +36,7 @@ public class client extends Thread
             clientMouse=new clientMouseDelegate(host,port+20);
             cs=new clientScreen(host,port+30);
             clientFile=new clientFileTransferDelegate(host,port+40);
+            clientClipboard=new clientClipboardDelegate(host,port+50);
 
 
 
@@ -326,6 +328,9 @@ public class client extends Thread
 
                     Thread fileTransferThread=new Thread(clientFile);
                     fileTransferThread.start();
+
+                    Thread clipboardThread=new Thread(clientClipboard);
+                    clipboardThread.start();  
 
                 }
                 catch(Exception e)
