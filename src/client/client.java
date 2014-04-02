@@ -32,11 +32,11 @@ public class client extends Thread
             br1=new BufferedReader(new InputStreamReader(System.in));
             socketReader=new BufferedReader(new InputStreamReader(client.getInputStream()));
             pw1=new PrintWriter(client.getOutputStream(),true);
-            clientKeyboard=new clientKeyboardDelegate(host,port+10);
-            clientMouse=new clientMouseDelegate(host,port+20);
-            cs=new clientScreen(host,port+30);
-            clientFile=new clientFileTransferDelegate(host,port+40);
-            clientClipboard=new clientClipboardDelegate(host,port+50);
+            clientKeyboard=new clientKeyboardDelegate(host,port+1);
+            clientMouse=new clientMouseDelegate(host,port+2);
+            cs=new clientScreen(host,port+3);
+            clientFile=new clientFileTransferDelegate(host,port+4);
+            clientClipboard=new clientClipboardDelegate(host,port+5);
 
 
 

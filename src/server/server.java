@@ -25,11 +25,11 @@ public server(int port)
         socketWriter=new PrintWriter(connection.getOutputStream(),true);
         
         
-        kb=new serverKeyboard(port+10);
-        sm=new serverMouse(port+20);
-        ss=new serverScreen(port+30);
-        serverFile=new serverFileTransfer(port+40);
-        serverClip=new serverClipboard(port+50);
+        kb=new serverKeyboard(port+1);
+        sm=new serverMouse(port+2);
+        ss=new serverScreen(port+3);
+        serverFile=new serverFileTransfer(port+4);
+        serverClip=new serverClipboard(port+5);
 
 
 
