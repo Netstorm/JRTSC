@@ -96,12 +96,12 @@ public class clientClipboard extends Thread
     {
       current = getClipboardData();
       pw1.println(current);
-      System.out.println("Writing to socket..");
+     
     }
     else
       {
         Thread.sleep(5000);
-        System.out.println("Sleeping");
+        
       }
   }
 

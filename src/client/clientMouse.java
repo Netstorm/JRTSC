@@ -118,7 +118,15 @@ public void mouseReleased(MouseEvent arg0) {
   frame=(JFrame) frames[3];
   
   border=((frame.getWidth())-(frame.getContentPane().getWidth()))/2;
-  titleBar=(((frame.getHeight())-(frame.getContentPane().getHeight()))-border)+(0.2*(frame.getJMenuBar()).getHeight());
+  
+  try{
+    Thread.sleep(2000); //wait for the JMenuBar to pop up so we can accommodate 
+  }
+  catch(Exception e)
+  {
+
+  }
+  titleBar=(((frame.getHeight())-(frame.getContentPane().getHeight()))-border);
   frames[3].addMouseListener(listener);
   }
   

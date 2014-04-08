@@ -100,10 +100,10 @@ public class serverClipboard extends Thread
 
   	
   	content = socketReader.readLine();
-    System.out.println("Read client Clipboard"+content);
+
   	if(prevContent==null)
   	{
-  		System.out.println("Was null");
+  
   		prevContent=content;
   		//System.out.println(content);
   		//System.out.println(prevContent);
@@ -111,10 +111,10 @@ public class serverClipboard extends Thread
   	 
      else if(!content.equals(prevContent))
 	 {
-	 	System.out.println("I am in else if");
+	 
     prevContent= content;
 	 	setClipboardData(content);
-	 	System.out.println("Client Clipboard has: "+content);
+	
 
 	 }
 	
@@ -127,7 +127,7 @@ public class serverClipboard extends Thread
     {
   	while(true)
   	{
-  		System.out.println("I am in run");
+  	
       checkClipboard();
   	}
 
